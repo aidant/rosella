@@ -1,0 +1,10 @@
+/*
+  The following @tailwind directives are required to ensure Tailwind CSS is
+  included in the final build of the CSS file. For more information, please see
+  the Tailwind CSS documentation:
+
+  https://tailwindcss.com/docs/installation#:~:text=Add%20the%20Tailwind%20directives%20to%20your%20CSS
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
