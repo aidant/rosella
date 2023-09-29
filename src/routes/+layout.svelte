@@ -1,4 +1,7 @@
 <script lang="ts">
+  import '@fontsource-variable/fira-code'
+  import '@fontsource-variable/fraunces'
+  import '@fontsource-variable/raleway'
   /*
     The following import statement is required to ensure that the CSS from
     src/app.css is included in the build. This is the recommended way to

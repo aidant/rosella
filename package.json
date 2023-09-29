@@ -12,17 +12,23 @@
     "preview": "vite preview",
     "start": "vite dev"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@fontsource-variable/fira-code": "^5.0.8",
+    "@fontsource-variable/fraunces": "^5.0.13",
+    "@fontsource-variable/raleway": "^5.0.9",
+    "@spotify/web-api-ts-sdk": "^1.1.2"
+  },
   "devDependencies": {
     "@sveltejs/adapter-cloudflare": "^2.3.3",
     "@sveltejs/kit": "^1.25.1",
+    "@types/spotify-web-playback-sdk": "^0.1.17",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-svelte": "^2.33.2",
-    "postcss": "^8.4.30",
+    "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "prettier-plugin-svelte": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",

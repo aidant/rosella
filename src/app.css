@@ -8,3 +8,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* https://www.realtimecolors.com/?colors=1C1917-f0f9ff-be123c-C7D2FE-2563EB&fonts=Fraunces-Raleway */
+/* https://www.realtimecolors.com/?colors=f0f9ff-0c0a09-be123c-C7D2FE-2563EB&fonts=Fraunces-Raleway */
+
+@layer base {
+  @media (prefers-color-scheme: light) {
+    :root {
+      --color-text: 24deg 10% 10%; /* stone-900 */
+      --color-background: 204deg 100% 97%; /* sky-50 */
+      --color-primary: 345deg 83% 41%; /* rose-700 */
+      --color-secondary: 228deg 96% 89%; /* indigo-200 */
+      --color-accent: 221deg 83% 53%; /* blue-600 */
+    }
+  }
+
+  @media (prefers-color-scheme: dark), (prefers-color-scheme: no-preference) {
+    :root {
+      --color-text: 204deg 100% 97%; /* sky-50 */
+      --color-background: 20deg 14% 4%; /* stone-950 */
+      --color-primary: 345deg 83% 41%; /* rose-700 */
+      --color-secondary: 228deg 96% 89%; /* indigo-200 */
+      --color-accent: 221deg 83% 53%; /* blue-600 */
+    }
+  }
+}
+
+:focus {
+  @apply outline-primary outline outline-2 outline-offset-2;
+}
