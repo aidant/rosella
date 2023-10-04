@@ -1,25 +1,25 @@
-<main class="bg-background text-text flex h-screen w-screen flex-row items-center justify-center">
+<main class="flex h-screen w-screen flex-row items-center justify-center bg-background text-text">
   <div class="flex flex-col items-center gap-10">
     <div class="flex flex-row gap-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 256 256"
-        class="fill-text h-24 w-24"
+        class="h-24 w-24 fill-text"
       >
         <path
           d="m236 73-23-15A60 60 0 0 0 96 76v17L2 211a8 8 0 0 0 6 13h104a104 104 0 0 0 104-104v-20l20-13a8 8 0 0 0 0-14Zm-126 68-40 48a8 8 0 0 1-12-10l40-48a8 8 0 1 1 12 10Zm54-61a12 12 0 1 1 12-12 12 12 0 0 1-12 12Z"
         /></svg
       >
-  <h1 class="font-serif text-8xl">Rosella</h1>
+      <h1 class="font-serif text-8xl">Rosella</h1>
     </div>
     <a
-      class="bg-primary flex flex-row gap-3 rounded-md px-4 py-2"
-      href="#"
+      class="flex flex-row gap-3 rounded-md bg-primary px-4 py-2 text-background dark:text-text"
+      href="./api/oauth2/spotify/install"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 127 127"
-        class="fill-text inline h-6 w-6"
+        class="inline h-6 w-6 fill-background dark:fill-text"
       >
         <path
           fill-rule="evenodd"
