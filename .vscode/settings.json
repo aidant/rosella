@@ -6,10 +6,11 @@
     ".svelte-kit": true,
     ".vscode": true,
     "node_modules": true,
+    "patches": true
   },
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "package.json": ".eslintignore, .eslintrc.cjs, .gitignore, .npmrc, .prettierignore, .prettierrc, package-lock.json, postcss.config.js, svelte.config.js, tailwind.config.ts, tsconfig.json, vite.config.ts"
+    "package.json": ".env, .eslintignore, .eslintrc.cjs, .gitignore, .npmrc, .prettierignore, .prettierrc, drizzle.config.ts, package-lock.json, postcss.config.js, svelte.config.js, tailwind.config.ts, tsconfig.json, vite.config.ts"
   }
 }

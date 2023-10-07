@@ -1,0 +1,24 @@
+diff --git a/node_modules/drizzle-orm/libsql/index.cjs b/node_modules/drizzle-orm/libsql/index.cjs
+index 4476fbf..4949167 100644
+--- a/node_modules/drizzle-orm/libsql/index.cjs
++++ b/node_modules/drizzle-orm/libsql/index.cjs
+@@ -2,7 +2,6 @@
+ 
+ var index = require('../index-1899b9ae.cjs');
+ var session = require('../session-90f70450.cjs');
+-require('@libsql/client');
+ 
+ var _a$1, _b, _c;
+ class LibSQLSession extends session.SQLiteSession {
+diff --git a/node_modules/drizzle-orm/libsql/index.mjs b/node_modules/drizzle-orm/libsql/index.mjs
+index 0975528..e5de47f 100644
+--- a/node_modules/drizzle-orm/libsql/index.mjs
++++ b/node_modules/drizzle-orm/libsql/index.mjs
+@@ -1,7 +1,6 @@
+ import { e as entityKind, i as is, m as mapResultRow, s as sql, f as fillPlaceholders, a as extractTablesRelationalConfig, c as createTableRelationsHelpers } from '../alias-cf8e03cd.mjs';
+ import { NoopLogger, DefaultLogger } from '../index.mjs';
+ import { S as SQLiteSession, d as SQLiteSelect, e as SQLiteInsert, f as SQLiteUpdate, g as SQLiteDelete, h as SQLiteRaw, i as SQLiteRelationalQuery, a as SQLiteTransaction, P as PreparedQuery$1, B as BaseSQLiteDatabase, c as SQLiteAsyncDialect } from '../session-afae3551.mjs';
+-import '@libsql/client';
+ 
+ class LibSQLSession extends SQLiteSession {
+     client;
