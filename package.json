@@ -9,40 +9,42 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --plugin-search-dir . --write .",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
+    "postinstall": "patch-package",
     "preview": "vite preview",
     "start": "vite dev"
   },
   "dependencies": {
-    "@fontsource-variable/fira-code": "^5.0.8",
-    "@fontsource-variable/fraunces": "^5.0.13",
-    "@fontsource-variable/raleway": "^5.0.9",
+    "@fontsource-variable/fira-code": "^5.0.12",
+    "@fontsource-variable/fraunces": "^5.0.15",
+    "@fontsource-variable/raleway": "^5.0.13",
     "@libsql/client": "^0.3.5",
     "@spotify/web-api-ts-sdk": "^1.1.2",
     "drizzle-orm": "^0.28.6",
-    "jose": "^4.14.6",
-    "zod": "^3.22.2"
+    "jose": "^4.15.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@sveltejs/adapter-cloudflare": "^2.3.3",
     "@sveltejs/kit": "^1.25.1",
     "@types/spotify-web-playback-sdk": "^0.1.17",
-    "@typescript-eslint/eslint-plugin": "^6.7.3",
-    "@typescript-eslint/parser": "^6.7.3",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
     "autoprefixer": "^10.4.16",
     "dotenv": "^16.3.1",
     "drizzle-kit": "^0.19.13",
-    "eslint": "^8.50.0",
+    "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-svelte": "^2.33.2",
+    "eslint-plugin-svelte": "^2.34.0",
+    "patch-package": "^8.0.0",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "prettier-plugin-svelte": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.4",
+    "prettier-plugin-tailwindcss": "^0.5.5",
     "svelte": "^4.2.1",
     "svelte-check": "^3.5.2",
     "tailwindcss": "^3.3.3",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9"
+    "vite": "^4.4.11"
   }
 }
