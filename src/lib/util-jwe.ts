@@ -1,15 +1,17 @@
 import { PRIVATE_JWK } from '$env/static/private'
-import { CompactEncrypt, compactDecrypt, importJWK, type JWK } from 'jose'
+import { PUBLIC_JWK } from '$env/static/public'
+import { CompactEncrypt, compactDecrypt, importJWK } from 'jose'
 
-const JWK = JSON.parse(PRIVATE_JWK)
+const public_jwk = JSON.parse(PUBLIC_JWK)
+const private_jwk = JSON.parse(PRIVATE_JWK)
 
 export const encrypt = async (payload: Uint8Array): Promise<string> => {
   return await new CompactEncrypt(payload)
-    .setProtectedHeader({ alg: JWK.alg!, enc: 'A256GCM' })
-    .encrypt(await importJWK(JWK))
+    .setProtectedHeader({ alg: public_jwk.alg!, enc: 'A256GCM' })
+    .encrypt(await importJWK(public_jwk))
 }
 
 export const decrypt = async (jwe: string): Promise<Uint8Array> => {
-  const result = await compactDecrypt(jwe, await importJWK(JWK))
+  const result = await compactDecrypt(jwe, await importJWK(private_jwk))
   return result.plaintext
 }
