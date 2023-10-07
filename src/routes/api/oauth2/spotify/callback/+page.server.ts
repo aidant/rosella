@@ -8,7 +8,6 @@ import { decrypt, encrypt } from '$lib/util-jwe'
 import { timingSafeEqual } from '$lib/util-timing-safe-equal'
 import { SpotifyApi } from '@spotify/web-api-ts-sdk'
 import { redirect } from '@sveltejs/kit'
-import { eq } from 'drizzle-orm'
 import { parse } from 'uuid'
 import type { PageServerLoad } from './$types'
 
@@ -76,7 +75,7 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
     })
     .returning({ sessionId: SessionSchema.id })
     .onConflictDoUpdate({
-      target: SessionSchema.id,
+      target: [SessionSchema.provider, SessionSchema.providerId],
       set: {
         credentialAccessToken: spotifyCredentials.access_token,
         credentialTokenType: spotifyCredentials.token_type,
@@ -86,7 +85,6 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 
         updatedAt: new Date(),
       },
-      where: eq(SessionSchema.provider, 'spotify'),
     })
 
   cookies.delete('rosella.oauth2.spotify.state')
