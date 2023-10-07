@@ -1,13 +1,11 @@
 import { PUBLIC_SPOTIFY_CLIENT_ID } from '$env/static/public'
 import { db } from '$lib/db'
-import { connection } from '$lib/db-connection.schema'
-import { credential } from '$lib/db-credential.schema'
-import { session } from '$lib/db-session.schema'
+import { SessionSchema } from '$lib/db-session.schema'
 import { SpotifyCredentialsSchema } from '$lib/schema-spotify-credentials'
-import { decode } from '$lib/util-json'
 import { decrypt } from '$lib/util-jwe'
 import { error, json } from '@sveltejs/kit'
-import { desc, eq, inArray, sql } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
+import { stringify } from 'uuid'
 import type { RequestHandler } from './$types'
 
 export const GET: RequestHandler = async ({ cookies }) => {
@@ -17,35 +15,18 @@ export const GET: RequestHandler = async ({ cookies }) => {
     throw error(401, { message: '' })
   }
 
-  const { id: sessionId } = decode<{ id: number }>(await decrypt(cookieSession))
+  const sessionId = stringify(await decrypt(cookieSession))
 
-  const entries = await db
+  let [credentials] = await db
     .select({
-      access_token: sql`${credential.credential} ->> '$.access_token'`,
-      token_type: sql`${credential.credential} ->> '$.token_type'`,
-      expires_in: sql`ROUND((JULIANDAY(${credential.createdAt}) - JULIANDAY(CURRENT_TIMESTAMP)) * 86400) + (${credential.credential} ->> '$.expires_in')`,
-      refresh_token: sql`${credential.credential} ->> '$.refresh_token'`,
-      scope: sql`${credential.credential} ->> '$.scope'`,
+      access_token: SessionSchema.credentialAccessToken,
+      token_type: SessionSchema.credentialTokenType,
+      expires_in: sql<number>`ROUND((JULIANDAY(${SessionSchema.createdAt}) - JULIANDAY(CURRENT_TIMESTAMP)) * 86400) + ${SessionSchema.credentialExpiresIn}`,
+      refresh_token: SessionSchema.credentialRefreshToken,
+      scope: sql<string>`(SELECT GROUP_CONCAT(json_each.value, ' ') FROM JSON_EACH(${SessionSchema.credentialScope}))`,
     })
-    .from(credential)
-    .where(
-      inArray(
-        credential.connectionId,
-        db
-          .select({ id: connection.id })
-          .from(connection)
-          .where(
-            inArray(
-              connection.userId,
-              db.select({ userId: session.userId }).from(session).where(eq(session.id, sessionId)),
-            ),
-          ),
-      ),
-    )
-    .orderBy(desc(credential.createdAt))
-    .limit(1)
-
-  let credentials = SpotifyCredentialsSchema.parse(entries[0])
+    .from(SessionSchema)
+    .where(eq(SessionSchema.id, sessionId))
 
   if (credentials.expires_in <= 0) {
     const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -60,25 +41,20 @@ export const GET: RequestHandler = async ({ cookies }) => {
       }),
     })
 
-    const data = await response.json()
+    credentials = SpotifyCredentialsSchema.parse(await response.json())
 
-    credentials = SpotifyCredentialsSchema.parse(data)
+    await db
+      .update(SessionSchema)
+      .set({
+        credentialAccessToken: credentials.access_token,
+        credentialTokenType: credentials.token_type,
+        credentialExpiresIn: credentials.expires_in,
+        credentialRefreshToken: credentials.refresh_token,
+        credentialScope: credentials.scope.split(' ').sort(),
 
-    const [{ id: connectionId }] = await db
-      .select({ id: connection.id })
-      .from(connection)
-      .where(
-        inArray(
-          connection.userId,
-          db.select({ userId: session.userId }).from(session).where(eq(session.id, sessionId)),
-        ),
-      )
-      .limit(1)
-
-    await db.insert(credential).values({
-      connectionId,
-      credential: credentials,
-    })
+        updatedAt: new Date(),
+      })
+      .where(eq(SessionSchema.id, sessionId))
   }
 
   return json({

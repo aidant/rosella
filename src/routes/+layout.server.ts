@@ -1,29 +1,22 @@
 import { db } from '$lib/db'
-import { session } from '$lib/db-session.schema'
-import { user as User } from '$lib/db-user.schema'
-import { decode } from '$lib/util-json'
+import { SessionSchema } from '$lib/db-session.schema'
 import { decrypt } from '$lib/util-jwe'
-import { eq, inArray } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
+import { stringify } from 'uuid'
 import type { LayoutServerLoad } from './$types'
 
-export const load: LayoutServerLoad = async ({ url, cookies }) => {
+export const load: LayoutServerLoad = async ({ cookies }) => {
   const cookieSession = cookies.get('rosella.session')
 
   if (!cookieSession) {
     return
   }
 
-  const { id: sessionId } = decode<{ id: number }>(await decrypt(cookieSession))
+  const sessionId = stringify(await decrypt(cookieSession))
 
-  const [user] = await db
-    .select()
-    .from(User)
-    .where(
-      inArray(
-        User.id,
-        db.select({ userId: session.userId }).from(session).where(eq(session.id, sessionId)),
-      ),
-    )
+  const [session] = await db.select().from(SessionSchema).where(eq(SessionSchema.id, sessionId))
 
-  return user
+  return {
+    id: session?.id,
+  }
 }

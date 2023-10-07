@@ -1,18 +1,15 @@
 import { base } from '$app/paths'
 import { PUBLIC_SPOTIFY_CLIENT_ID } from '$env/static/public'
 import { db } from '$lib/db'
-import { connection } from '$lib/db-connection.schema'
-import { credential } from '$lib/db-credential.schema'
-import { session } from '$lib/db-session.schema'
-import { user } from '$lib/db-user.schema'
+import { SessionSchema } from '$lib/db-session.schema'
 import { SpotifyCredentialsSchema } from '$lib/schema-spotify-credentials'
 import { encode as base64url, decode } from '$lib/util-base64-url'
-import { encode as json } from '$lib/util-json'
 import { decrypt, encrypt } from '$lib/util-jwe'
 import { timingSafeEqual } from '$lib/util-timing-safe-equal'
 import { SpotifyApi } from '@spotify/web-api-ts-sdk'
 import { redirect } from '@sveltejs/kit'
-import { and, eq } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
+import { parse } from 'uuid'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ url, cookies }) => {
@@ -65,41 +62,36 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
   const spotify = SpotifyApi.withAccessToken(PUBLIC_SPOTIFY_CLIENT_ID, data)
   const profile = await spotify.currentUser.profile()
 
-  const sessionId = await db.transaction<number>(async (tx) => {
-    let userId: number
-    let connectionId: number
+  const [{ sessionId }] = await db
+    .insert(SessionSchema)
+    .values({
+      provider: 'spotify',
+      providerId: profile.id,
 
-    const connections = await tx
-      .update(connection)
-      .set({ updatedAt: new Date() })
-      .where(and(eq(connection.provider, 'spotify'), eq(connection.providerId, profile.id)))
-      .returning({ id: connection.id, userId: connection.userId })
+      credentialAccessToken: spotifyCredentials.access_token,
+      credentialTokenType: spotifyCredentials.token_type,
+      credentialExpiresIn: spotifyCredentials.expires_in,
+      credentialRefreshToken: spotifyCredentials.refresh_token,
+      credentialScope: spotifyCredentials.scope.split(' ').sort(),
+    })
+    .returning({ sessionId: SessionSchema.id })
+    .onConflictDoUpdate({
+      target: SessionSchema.id,
+      set: {
+        credentialAccessToken: spotifyCredentials.access_token,
+        credentialTokenType: spotifyCredentials.token_type,
+        credentialExpiresIn: spotifyCredentials.expires_in,
+        credentialRefreshToken: spotifyCredentials.refresh_token,
+        credentialScope: spotifyCredentials.scope.split(' ').sort(),
 
-    userId = connections[0]?.userId
-    connectionId = connections[0]?.id
-
-    if (!userId || !connectionId) {
-      const users = await tx.insert(user).values({}).returning({ id: user.id })
-      userId = users[0].id
-
-      const connections = await tx
-        .insert(connection)
-        .values({ provider: 'spotify', providerId: profile.id, userId })
-        .returning({ id: connection.id })
-
-      connectionId = connections[0].id
-    }
-
-    await tx.insert(credential).values({ connectionId, credential: spotifyCredentials })
-
-    const sessions = await tx.insert(session).values({ userId }).returning({ id: session.id })
-
-    return sessions[0].id
-  })
+        updatedAt: new Date(),
+      },
+      where: eq(SessionSchema.provider, 'spotify'),
+    })
 
   cookies.delete('rosella.oauth2.spotify.state')
   cookies.delete('rosella.oauth2.spotify.verifier')
-  cookies.set('rosella.session', await encrypt(json({ id: sessionId })), {
+  cookies.set('rosella.session', await encrypt(parse(sessionId)), {
     httpOnly: true,
     path: '/',
     secure: import.meta.env.PROD,
