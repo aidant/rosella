@@ -14,9 +14,8 @@ export default {
       },
 
       fontFamily: {
-        sans: ['Raleway Variable', ...theme.fontFamily.sans],
-        serif: ['Fraunces Variable', ...theme.fontFamily.serif],
-        mono: ['Fira Code Variable', ...theme.fontFamily.mono],
+        display: ['Outfit Variable', ...theme.fontFamily.sans],
+        body: ['Atkinson Hyperlegible', ...theme.fontFamily.sans],
       },
     },
   },
