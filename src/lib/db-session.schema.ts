@@ -1,23 +1,11 @@
 import { sql } from 'drizzle-orm'
-import { customType, int, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core'
-import { parse, stringify, v4 as uuidv4 } from 'uuid'
-
-const uuid = customType<{ data: string; driverData: Uint8Array }>({
-  dataType: () => 'blob',
-  fromDriver: (value) => {
-    console.log('drizzle-orm -> uuid -> fromDriver -> value', typeof value, value)
-    return stringify(value)
-  },
-  toDriver: (value) => {
-    console.log('drizzle-orm -> uuid -> toDriver -> value', typeof value, value)
-    return parse(value)
-  },
-})
+import { int, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core'
+import { v4 as uuidv4 } from 'uuid'
 
 export const SessionSchema = sqliteTable(
   'session',
   {
-    id: uuid('id')
+    id: text('id')
       .primaryKey()
       .$default(() => uuidv4()),
 
