@@ -1,25 +1,47 @@
-<main class="flex h-screen w-screen flex-row items-center justify-center bg-background text-text">
+<main class="flex h-screen w-screen flex-row items-center justify-center">
   <div class="flex flex-col items-center gap-10">
-    <div class="flex flex-row gap-4">
+    <div class="flex flex-row items-center gap-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 256 256"
-        class="mt-auto h-20 w-20 fill-text"
+        fill="none"
+        viewBox="0 0 32 32"
+        class="h-20 w-20 fill-text"
       >
         <path
-          d="m236 73-23-15A60 60 0 0 0 96 76v17L2 211a8 8 0 0 0 6 13h104a104 104 0 0 0 104-104v-20l20-13a8 8 0 0 0 0-14Zm-126 68-40 48a8 8 0 0 1-12-10l40-48a8 8 0 1 1 12 10Zm54-61a12 12 0 1 1 12-12 12 12 0 0 1-12 12Z"
-        /></svg
-      >
-      <h1 class="font-display text-8xl">Rosella</h1>
+          class="fill-primary"
+          fill-rule="evenodd"
+          d="M16 0A16 16 0 0 0 0 16v9.8C0 29.2 2.8 32 6.2 32h10.9H16v-8h14c1.2-2.4 2-5 2-8A16 16 0 0 0 16 0Z"
+          clip-rule="evenodd"
+        />
+        <circle
+          cx="16"
+          cy="12"
+          r="2.1"
+          class="fill-text dark:fill-background"
+        />
+        <path
+          class="fill-accent"
+          d="M8 24a8 8 0 0 1 8-8h5.4c1.4 0 2.6 1.2 2.6 2.6V24a8 8 0 0 1-16 0Z"
+        />
+        <rect
+          width="8"
+          height="16"
+          x="24"
+          y="12"
+          class="fill-text"
+          rx="4"
+        />
+      </svg>
+      <h1 class="font-display text-8xl font-black">Rosella</h1>
     </div>
     <a
-      class="flex flex-row gap-3 rounded-md bg-primary px-4 py-2 text-background shadow-md shadow-primary/25 transition-[box-shadow,transform] motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg motion-safe:hover:shadow-primary/25 dark:text-text"
+      class="flex flex-row gap-3 rounded-md bg-text px-4 py-2 text-background shadow-md shadow-text/25 transition-[box-shadow,transform] motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-lg motion-safe:hover:shadow-text/25"
       href="./api/oauth2/spotify/install"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 127 127"
-        class="inline h-6 w-6 fill-background dark:fill-text"
+        class="inline h-6 w-6 fill-background"
       >
         <path
           fill-rule="evenodd"

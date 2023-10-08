@@ -9,31 +9,32 @@
 @tailwind components;
 @tailwind utilities;
 
-/* https://www.realtimecolors.com/?colors=1C1917-f0f9ff-be123c-C7D2FE-2563EB&fonts=Fraunces-Raleway */
-/* https://www.realtimecolors.com/?colors=f0f9ff-0c0a09-be123c-C7D2FE-2563EB&fonts=Fraunces-Raleway */
-
 @layer base {
-  @media (prefers-color-scheme: light) {
+  /* https://www.realtimecolors.com/?colors=0a0a0a-F7F5FF-a71b29-ded7fe-6b26d9&fonts=Poppins-Atkinson%20Hyperlegible */
+
+  @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
     :root {
-      --color-text: 24deg 10% 10%; /* stone-900 */
-      --color-background: 204deg 100% 97%; /* sky-50 */
-      --color-primary: 345deg 83% 41%; /* rose-700 */
-      --color-secondary: 228deg 96% 89%; /* indigo-200 */
-      --color-accent: 221deg 83% 53%; /* blue-600 */
+      --color-text: 14.5% 0% 0%; /* netural-950 */
+      --color-background: 96.9% 1.5% -3.75%; /* violet-50 */
+      --color-primary: 50.5% 42.25% 22%; /* red-700 */
+      --color-secondary: 89.4% 5.5% -12.5%; /* violet-200 */
+      --color-accent: 49.1% 23.25% -55.75%; /* violet-700 */
     }
   }
 
-  @media (prefers-color-scheme: dark), (prefers-color-scheme: no-preference) {
+  /* https://www.realtimecolors.com/?colors=f5f3ff-0a0a0a-A91B29-ddd6fe-6D28D9&fonts=Poppins-Atkinson%20Hyperlegible */
+
+  @media (prefers-color-scheme: dark) {
     :root {
-      --color-text: 204deg 100% 97%; /* sky-50 */
-      --color-background: 20deg 14% 4%; /* stone-950 */
-      --color-primary: 345deg 83% 41%; /* rose-700 */
-      --color-secondary: 228deg 96% 89%; /* indigo-200 */
-      --color-accent: 221deg 83% 53%; /* blue-600 */
+      --color-text: 96.9% 1.5% -3.75%; /* violet-50 */
+      --color-background: 14.5% 0% 0%; /* netural-950 */
+      --color-primary: 50.5% 42.25% 22%; /* red-700 */
+      --color-secondary: 89.4% 5.5% -12.5%; /* violet-200 */
+      --color-accent: 49.1% 23.25% -55.75%; /* violet-700 */
     }
   }
 }
 
 :focus {
-  @apply outline-primary outline outline-2 outline-offset-2;
+  @apply outline outline-2 outline-offset-2 outline-primary;
 }

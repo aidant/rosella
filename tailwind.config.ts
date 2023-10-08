@@ -6,15 +6,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        text: 'hsl(var(--color-text) / <alpha-value>)',
-        background: 'hsl(var(--color-background) / <alpha-value>)',
-        primary: 'hsl(var(--color-primary) / <alpha-value>)',
-        secondary: 'hsl(var(--color-secondary) / <alpha-value>)',
-        accent: 'hsl(var(--color-accent) / <alpha-value>)',
+        text: 'oklab(var(--color-text) / <alpha-value>)',
+        background: 'oklab(var(--color-background) / <alpha-value>)',
+        primary: 'oklab(var(--color-primary) / <alpha-value>)',
+        secondary: 'oklab(var(--color-secondary) / <alpha-value>)',
+        accent: 'oklab(var(--color-accent) / <alpha-value>)',
       },
 
       fontFamily: {
-        display: ['Outfit Variable', ...theme.fontFamily.sans],
+        display: ['Poppins', ...theme.fontFamily.sans],
         body: ['Atkinson Hyperlegible', ...theme.fontFamily.sans],
       },
     },
