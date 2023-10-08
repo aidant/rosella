@@ -15,11 +15,7 @@ export const GET: RequestHandler = async ({ cookies }) => {
     throw error(401, { message: '' })
   }
 
-  const sessionIdUint8Array = await decrypt(cookieSession)
-
-  console.log('api/oauth2/spotify/credentials -> sessionIdUint8Array', sessionIdUint8Array)
-
-  const sessionId = stringify(sessionIdUint8Array)
+  const sessionId = stringify(await decrypt(cookieSession))
 
   let [credentials] = await db
     .select({

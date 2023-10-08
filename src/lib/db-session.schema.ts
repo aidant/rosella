@@ -5,11 +5,11 @@ import { parse, stringify, v4 as uuidv4 } from 'uuid'
 const uuid = customType<{ data: string; driverData: Uint8Array }>({
   dataType: () => 'blob',
   fromDriver: (value) => {
-    console.log('drizzle-orm -> uuid -> fromDriver -> value', value)
+    console.log('drizzle-orm -> uuid -> fromDriver -> value', typeof value, value)
     return stringify(value)
   },
   toDriver: (value) => {
-    console.log('drizzle-orm -> uuid -> toDriver -> value', value)
+    console.log('drizzle-orm -> uuid -> toDriver -> value', typeof value, value)
     return parse(value)
   },
 })
