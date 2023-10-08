@@ -4,8 +4,14 @@ import { parse, stringify, v4 as uuidv4 } from 'uuid'
 
 const uuid = customType<{ data: string; driverData: Uint8Array }>({
   dataType: () => 'blob',
-  fromDriver: stringify,
-  toDriver: parse,
+  fromDriver: (value) => {
+    console.log('drizzle-orm -> uuid -> fromDriver -> value', value)
+    return stringify(value)
+  },
+  toDriver: (value) => {
+    console.log('drizzle-orm -> uuid -> toDriver -> value', value)
+    return parse(value)
+  },
 })
 
 export const SessionSchema = sqliteTable(
