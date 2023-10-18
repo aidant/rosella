@@ -14,8 +14,8 @@
     "start": "vite dev"
   },
   "dependencies": {
+    "@fontsource-variable/playfair-display": "^5.0.16",
     "@fontsource/atkinson-hyperlegible": "^5.0.14",
-    "@fontsource/poppins": "^5.0.8",
     "@libsql/client": "^0.3.5",
     "@spotify/web-api-ts-sdk": "^1.1.2",
     "drizzle-orm": "^0.28.6",

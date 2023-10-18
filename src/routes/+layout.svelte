@@ -1,6 +1,6 @@
 <script lang="ts">
+  import '@fontsource-variable/playfair-display'
   import '@fontsource/atkinson-hyperlegible'
-  import '@fontsource/poppins'
   /*
     The following import statement is required to ensure that the CSS from
     src/app.css is included in the build. This is the recommended way to

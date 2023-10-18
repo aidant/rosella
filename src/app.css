@@ -9,32 +9,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  /* https://www.realtimecolors.com/?colors=0a0a0a-F7F5FF-a71b29-ded7fe-6b26d9&fonts=Poppins-Atkinson%20Hyperlegible */
-
-  @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
-    :root {
-      --color-text: 14.5% 0% 0%; /* netural-950 */
-      --color-background: 96.9% 1.5% -3.75%; /* violet-50 */
-      --color-primary: 50.5% 42.25% 22%; /* red-700 */
-      --color-secondary: 89.4% 5.5% -12.5%; /* violet-200 */
-      --color-accent: 49.1% 23.25% -55.75%; /* violet-700 */
-    }
-  }
-
-  /* https://www.realtimecolors.com/?colors=f5f3ff-0a0a0a-A91B29-ddd6fe-6D28D9&fonts=Poppins-Atkinson%20Hyperlegible */
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --color-text: 96.9% 1.5% -3.75%; /* violet-50 */
-      --color-background: 14.5% 0% 0%; /* netural-950 */
-      --color-primary: 50.5% 42.25% 22%; /* red-700 */
-      --color-secondary: 89.4% 5.5% -12.5%; /* violet-200 */
-      --color-accent: 49.1% 23.25% -55.75%; /* violet-700 */
-    }
-  }
-}
-
 :focus {
-  @apply outline outline-2 outline-offset-2 outline-primary;
+  @apply outline outline-2 outline-offset-2 outline-black;
 }
